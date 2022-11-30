@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: haproxy-ingress
+  name: haproxy-ingress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: haproxy-ingress
+  template:
+    metadata:
+      labels:
+        run: haproxy-ingress
+    spec:
+      serviceAccountName: haproxy-ingress-serviceaccount
+      containers:
+      - name: haproxy-ingress
+        image: ghcr.io/nirmata/haproxy-ingress:v0.13.6
+        args:
+        - --default-backend-service=$(POD_NAMESPACE)/ingress-default-backend
+        - --default-ssl-certificate=$(POD_NAMESPACE)/tls-secret
+        - --configmap=$(POD_NAMESPACE)/haproxy-configmap
+        - --watch-ingress-without-class
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        - name: stat
+          containerPort: 1936
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 10253
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 10253
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 20Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsGroup: 1001
+          runAsNonRoot: true
+          runAsUser: 1001
+        volumeMounts:                                                           
+        - mountPath: /ingress-controller/ssl
+          name: ingress-controller-ssl
+        - mountPath: /ingress-controller/cacerts
+          name: ingress-controller-cacerts
+        - mountPath: /ingress-controller/crl
+          name: ingress-controller-crl
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+      volumes:
+      - emptyDir: {}
+        name: ingress-controller-ssl
+      - emptyDir: {}
+        name: ingress-controller-cacerts
+      - emptyDir: {}
+        name: ingress-controller-crl
