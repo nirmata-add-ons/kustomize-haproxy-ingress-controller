@@ -1,0 +1,1 @@
+# kustomize-haproxy-ingress-controller
