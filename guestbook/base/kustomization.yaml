@@ -3,5 +3,4 @@ resources:
 - default-backend-svc.yaml
 - haproxy-dep.yaml
 - role.yaml
-- rolebinding.yaml
 - serviceaccount.yaml
