@@ -1,0 +1,7 @@
+resources:
+- default-backend-dep.yaml
+- default-backend-svc.yaml
+- haproxy-dep.yaml
+- role.yaml
+- rolebinding.yaml
+- serviceaccount.yaml
