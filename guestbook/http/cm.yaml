@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+data:
+    dynamic-scaling: "true"
+    backend-server-slots-increment: "4"
+    http-port: "8080"
+    https-port: "8443"
+    stats-port: "1936"
+metadata:
+  name: haproxy-configmap
+  namespace: ingress-haproxy

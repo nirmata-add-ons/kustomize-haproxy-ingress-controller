@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: ingress-default-backend
+  name: ingress-default-backend
+  namespace: ingress-haproxy
+spec:
+  ports:
+  - name: port-1
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: ingress-default-backend
