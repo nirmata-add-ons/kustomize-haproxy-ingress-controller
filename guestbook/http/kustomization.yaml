@@ -1,0 +1,7 @@
+resources:
+- ../base/
+- cm.yaml
+- clusterrole.yaml
+- clusterrolebinding.yaml
+- service.yaml
+- rolebinding.yaml
