@@ -4,7 +4,6 @@ metadata:
   labels:
     run: ingress-default-backend
   name: ingress-default-backend
-  namespace: ingress-haproxy
 spec:
   ports:
   - name: port-1

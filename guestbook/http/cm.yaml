@@ -8,4 +8,3 @@ data:
     stats-port: "1936"
 metadata:
   name: haproxy-configmap
-  namespace: ingress-haproxy
