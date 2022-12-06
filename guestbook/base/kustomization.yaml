@@ -4,4 +4,3 @@ resources:
 - haproxy-dep.yaml
 - role.yaml
 - serviceaccount.yaml
-- service.yaml
