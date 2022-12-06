@@ -3,20 +3,6 @@ resources:
 - cm.yaml
 - clusterrole.yaml
 - clusterrolebinding.yaml
-- service.yaml
 - rolebinding.yaml
-patchesStrategicMerge:
-- |-
-    apiVersion: apps/v1
-    kind: Service
-    metadata:
-      name: haproxy-ingress
-    spec:
-      type: NodePort
-      ports:
-      - name: port-1
-        nodePort: 30080
-      - name: port-2
-        nodePort: 30443
-      - name: port-3
-        nodePort: 31936
+- service.yaml
+
