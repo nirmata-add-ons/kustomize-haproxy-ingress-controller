@@ -4,7 +4,6 @@ metadata:
   labels:
     run: haproxy-ingress
   name: haproxy-ingress
-  namespace: demo
 spec:
   type: NodePort
   ports:
